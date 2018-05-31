@@ -1,6 +1,6 @@
 const deck = document.querySelector(".deck");
 const newGame = document.querySelector(".restart");
-
+const moves = document.querySelector(".moves");
 
 /*
  * Create a list that holds all of your cards
@@ -36,8 +36,6 @@ function shuffle(array) {
     return array;
 }
 
-
-
 function createDeck(){
   cards = shuffle(cards);
   console.log(cards);
@@ -57,8 +55,12 @@ newGame.addEventListener("click", function(){
   deck.innerHTML="";
   createDeck();
   console.log("New Deck created");
-});
+})
 
+/* card flips and shows on click */
+deck.addEventListener("click", function(event){
+  event.target.classList.add("open", "show");
+})
 
 /*
  * set up the event listener for a card. If a card is clicked:
