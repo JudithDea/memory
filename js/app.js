@@ -1,5 +1,6 @@
 const deck = document.querySelector(".deck");
 const newGame = document.querySelector(".restart");
+let clickCounter = 0;
 const moves = document.querySelector(".moves");
 
 /*
@@ -53,14 +54,26 @@ createDeck();
 /* create new deck when restart button is clicked, delete old deck*/
 newGame.addEventListener("click", function(){
   deck.innerHTML="";
+  clickCounter = 0;
+  moves.innerText = clickCounter + " Moves";
   createDeck();
   console.log("New Deck created");
 })
 
-/* card flips and shows on click */
+/* card opens and shows on click, moves counter increases */
 deck.addEventListener("click", function(event){
   event.target.classList.add("open", "show");
+  clickCounter += 1;
+  console.log ("number of moves: " + clickCounter);
+  if (clickCounter === 1) {
+    moves.innerText = clickCounter + " Move";
+  }
+  else {
+    moves.innerText = clickCounter + " Moves";  
+  }
 })
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
