@@ -1,3 +1,7 @@
+const deck = document.querySelector(".deck");
+const newGame = document.querySelector(".restart");
+
+
 /*
  * Create a list that holds all of your cards
  */
@@ -32,18 +36,29 @@ function shuffle(array) {
     return array;
 }
 
-cards = shuffle(cards);
-console.log(cards);
 
-const deck = document.querySelector(".deck");
-for (i = 0; i<cards.length; i++){
-  const newCard = document.createElement("li");
-  newCard.classList.add("card");
-  deck.appendChild(newCard);
-  const icon = document.createElement("i");
-  icon.classList.add("fa", cards[i]);
-  newCard.appendChild(icon);
+
+function createDeck(){
+  cards = shuffle(cards);
+  console.log(cards);
+  for (i = 0; i<cards.length; i++){
+    const newCard = document.createElement("li");
+    newCard.classList.add("card");
+    deck.appendChild(newCard);
+    const icon = document.createElement("i");
+    icon.classList.add("fa", cards[i]);
+    newCard.appendChild(icon);
+  }
 }
+createDeck();
+
+/* create new deck when restart button is clicked, delete old deck*/
+newGame.addEventListener("click", function(){
+  deck.innerHTML="";
+  createDeck();
+  console.log("New Deck created");
+});
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
