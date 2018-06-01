@@ -61,18 +61,17 @@ newGame.addEventListener("click", function(){
 })
 
 const allCards = document.querySelectorAll(".card");
-/* card opens and shows on click, moves counter increases */
-
+/* card opens and shows on  click, moves counter increases */
 allCards.forEach(function(card){
   card.addEventListener("click", function(event) {
     event.target.classList.add("open", "show");
-    clickCounter += 1;
+    clickCounter += 0.5;
     console.log ("number of moves: " + clickCounter);
-    if (clickCounter === 1) {
-      moves.innerText = clickCounter + " Move";
+    if (clickCounter === 1 || clickCounter === 1.5) {
+      moves.innerText = Math.floor(clickCounter) + " Move";
     }
     else {
-      moves.innerText = clickCounter + " Moves";
+      moves.innerText = Math.floor(clickCounter) + " Moves";
     }
   })
 })
