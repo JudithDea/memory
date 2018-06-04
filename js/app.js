@@ -1,7 +1,7 @@
 const deck = document.querySelector(".deck");
 const newGame = document.querySelector(".restart");
-let clickCounter = 0;
 const moves = document.querySelector(".moves");
+let clickCounter = 0;
 
 /*
  * Create a list that holds all of your cards
@@ -25,7 +25,6 @@ let cards = ["fa-diamond", "fa-diamond",
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
@@ -33,7 +32,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
@@ -51,29 +49,29 @@ function createDeck(){
 }
 createDeck();
 
-/* create new deck when restart button is clicked, delete old deck, reset moves counter*/
+/* create new deck when restart button is clicked, delete old deck*/
 newGame.addEventListener("click", function(){
   deck.innerHTML="";
-  clickCounter = 0;
-  moves.innerText = clickCounter + " Moves";
   createDeck();
+  clickCounter = 0;
+  moves.innerText = "";
   console.log("New Deck created");
 })
 
-const allCards = document.querySelectorAll(".card");
-/* card opens and shows on  click, moves counter increases */
-allCards.forEach(function(card){
-  card.addEventListener("click", function(event) {
-    event.target.classList.add("open", "show");
-    clickCounter += 0.5;
-    console.log ("number of moves: " + clickCounter);
-    if (clickCounter === 1 || clickCounter === 1.5) {
-      moves.innerText = Math.floor(clickCounter) + " Move";
-    }
-    else {
-      moves.innerText = Math.floor(clickCounter) + " Moves";
-    }
-  })
+/* card flips and shows on click */
+deck.addEventListener("click", function(event){
+  if (event.target.nodeName == "LI"){
+  event.target.classList.add("open", "show");
+  clickCounter += 0.5;
+  console.log ("clicks: " + clickCounter);
+  if (clickCounter === 0 || clickCounter === 0.5){
+      moves.innerText = "";
+  } else if (clickCounter === 1 || clickCounter === 1.5) {
+    moves.innerText = Math.floor(clickCounter) + " Move";
+  } else {
+    moves.innerText = Math.floor(clickCounter) + " Moves";
+  }
+  }
 })
 
 /*
