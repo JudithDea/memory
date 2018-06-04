@@ -84,7 +84,7 @@ newGame.addEventListener("click", function(){
 
 /* card flips and shows on click */
 deck.addEventListener("click", function(event){
-  if (event.target.nodeName == "LI"){
+  if (event.target.nodeName == "LI" && openCards.length < 2){ /* Making sure event doesn't fire when deck is clicked, only LIs should fire*/
   event.target.classList.add("open", "show");
   clickCounter += 0.5;
   console.log ("clicks: " + clickCounter);
@@ -96,6 +96,8 @@ deck.addEventListener("click", function(event){
     moves.innerText = Math.floor(clickCounter) + " Moves";
   }
   }
+  /* check for matches and run flip or match function
+   */
 })
 
 
