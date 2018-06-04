@@ -37,6 +37,28 @@ function shuffle(array) {
     return array;
 }
 
+/* Flip cards back over by removing open and show classes */
+function flip() {
+  for (i=0; i<openCards.length; i++ ){
+    openArray.push(openCards[i]);
+  }
+  openArray[0].classList.remove("open", "show");
+  openArray[1].classList.remove("open", "show");
+  openArray = [];
+}
+
+/* lock a match by removing open and show and setting match classes*/
+function match(){
+  for (i=0; i<openCards.length; i++ ){
+    openArray.push(openCards[i]);
+  }
+  openArray[0].classList.add("match");
+  openArray[0].classList.remove("open", "show");
+  openArray[1].classList.add("match");
+  openArray[1].classList.remove("open", "show");
+  openArray = [];
+}
+
 function createDeck(){
   cards = shuffle(cards);
   console.log(cards);
@@ -76,24 +98,7 @@ deck.addEventListener("click", function(event){
   }
 })
 
-/* Flip cards back over by removing open and show classes */
-function flip() {
-  for (i=0; i<openCards.length; i++ ){
-    openArray.push(openCards[i]);
-  }
-  openArray[0].classList.remove("open", "show");
-  openArray[1].classList.remove("open", "show");
-}
 
-function match(){
-  for (i=0; i<openCards.length; i++ ){
-    openArray.push(openCards[i]);
-  }
-  openArray[0].classList.add("match");
-  openArray[0].classList.remove("open", "show");
-  openArray[1].classList.add("match");
-  openArray[1].classList.remove("open", "show");
-}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
