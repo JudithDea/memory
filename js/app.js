@@ -2,6 +2,8 @@ const deck = document.querySelector(".deck");
 const newGame = document.querySelector(".restart");
 const moves = document.querySelector(".moves");
 let clickCounter = 0;
+let openCards = document.getElementsByClassName("open");
+let openArray = [];
 
 /*
  * Create a list that holds all of your cards
@@ -38,7 +40,7 @@ function shuffle(array) {
 function createDeck(){
   cards = shuffle(cards);
   console.log(cards);
-  for (i = 0; i<cards.length; i++){
+  for (i=0; i<cards.length; i++){
     const newCard = document.createElement("li");
     newCard.classList.add("card");
     deck.appendChild(newCard);
@@ -74,6 +76,14 @@ deck.addEventListener("click", function(event){
   }
 })
 
+/* Flip cards back over by removing open and show classes */
+function flip() {
+  for (i=0; i<openCards.length; i++ ){
+    openArray.push(openCards[i]);
+  }
+  openArray[0].classList.remove("open", "show");
+  openArray[1].classList.remove("open", "show");
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
