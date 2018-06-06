@@ -52,6 +52,12 @@ function compare(){
   }
 }
 
+function gameOver() {
+  if (matches.length === 16){
+    alert("You won!");
+  }
+}
+
 // counts every pair of cards that's clicked
 function count(){
   clickCounter += 0.5;
@@ -98,6 +104,7 @@ deck.addEventListener("click", function(event){
   openArray.push(event.target);
   count();
   compare();
+  gameOver();
   }
   // check for matches and run flip or match function
 })
