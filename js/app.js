@@ -4,10 +4,8 @@ const moves = document.querySelector(".moves");
 let clickCounter = 0;
 let openCards = document.getElementsByClassName("open");
 let openArray = [];
+let matches = document.getElementsByClassName("match");
 
-/*
- * Create a list that holds all of your cards
- */
 let cards = ["fa-diamond", "fa-diamond",
       "fa-paper-plane-o", "fa-paper-plane-o",
       "fa-anchor", "fa-anchor",
@@ -16,13 +14,6 @@ let cards = ["fa-diamond", "fa-diamond",
       "fa-leaf", "fa-leaf",
       "fa-bicycle", "fa-bicycle",
       "fa-bomb", "fa-bomb"];
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -37,7 +28,7 @@ function shuffle(array) {
     return array;
 }
 
-/* Flip cards back over by removing open and show classes */
+// Flip cards back over by removing open and show classes
 function flip() {
   for (i=0; i<openCards.length; i++ ){
     openArray.push(openCards[i]);
@@ -47,7 +38,7 @@ function flip() {
   openArray = [];
 }
 
-/* lock a match by removing open and show and setting match classes*/
+// lock a match by removing open and show and setting match classes
 function match(){
   for (i=0; i<openCards.length; i++ ){
     openArray.push(openCards[i]);
@@ -57,6 +48,19 @@ function match(){
   openArray[1].classList.add("match");
   openArray[1].classList.remove("open", "show");
   openArray = [];
+}
+
+// counts every pair of cards that's clicked
+function count(){
+  clickCounter += 0.5;
+  console.log ("clicks: " + clickCounter);
+  if (clickCounter === 0 || clickCounter === 0.5){
+      moves.innerText = "";
+  } else if (clickCounter === 1 || clickCounter === 1.5) {
+    moves.innerText = Math.floor(clickCounter) + " Move";
+  } else {
+    moves.innerText = Math.floor(clickCounter) + " Moves";
+  }
 }
 
 function createDeck(){
@@ -73,31 +77,26 @@ function createDeck(){
 }
 createDeck();
 
-/* create new deck when restart button is clicked, delete old deck*/
+// create new deck when restart button is clicked, delete old deck, reset counter
 newGame.addEventListener("click", function(){
   deck.innerHTML="";
   createDeck();
   clickCounter = 0;
   moves.innerText = "";
   console.log("New Deck created");
+  openArray = [];
 })
 
-/* card flips and shows on click */
+// card flips and shows on click
 deck.addEventListener("click", function(event){
-  if (event.target.nodeName == "LI" && openCards.length < 2){ /* Making sure event doesn't fire when deck is clicked, only LIs should fire*/
+  if (event.target.nodeName == "LI" && openCards.length < 2 && !event.target.classList.contains("match")){
+    //event should not fire when - UL is clicked instead of LI - AND when 2 cards are already open - AND when
+    //the target element already has the class match
   event.target.classList.add("open", "show");
-  clickCounter += 0.5;
-  console.log ("clicks: " + clickCounter);
-  if (clickCounter === 0 || clickCounter === 0.5){
-      moves.innerText = "";
-  } else if (clickCounter === 1 || clickCounter === 1.5) {
-    moves.innerText = Math.floor(clickCounter) + " Move";
-  } else {
-    moves.innerText = Math.floor(clickCounter) + " Moves";
+  count();
   }
-  }
-  /* check for matches and run flip or match function
-   */
+  // check for matches and run flip or match function
+
 })
 
 
