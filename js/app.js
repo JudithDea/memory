@@ -49,7 +49,18 @@ function compare(){
   if (openArray[0].innerHTML == openArray[1].innerHTML){
     match();
   } else {
-    setTimeout(function() { flip(); }, 1000);
+    setTimeout(function() {flip(); }, 1000);
+    // Give user a chance to memorize cards before flipping them back
+  }
+}
+
+function starCounter(){
+  if (clickCounter <= 8){
+    stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>'
+  } else if (clickCounter > 8 && clickCounter <=10){
+    stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>'
+  } else {
+    stars.innerHTML = '<li><i class="fa fa-star"></i>'
   }
 }
 
@@ -106,6 +117,7 @@ deck.addEventListener("click", function(event){
   count();
   if (openArray.length ===2) {
     compare();
+    starCounter();
   }
   gameOver();
   }
