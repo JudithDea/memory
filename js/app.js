@@ -104,7 +104,9 @@ deck.addEventListener("click", function(event){
   event.target.classList.add("open", "show");
   openArray.push(event.target);
   count();
-  compare();
+  if (openArray.length ===2) {
+    compare();
+  }
   gameOver();
   }
 })
