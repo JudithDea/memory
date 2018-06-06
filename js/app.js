@@ -44,6 +44,14 @@ function match(){
   openArray = [];
 }
 
+function compare(){
+  if (openArray[0].innerHTML == openArray[1].innerHTML){
+    match();
+  } else {
+    setTimeout(function() { flip(); }, 1000);
+  }
+}
+
 // counts every pair of cards that's clicked
 function count(){
   clickCounter += 0.5;
@@ -89,6 +97,7 @@ deck.addEventListener("click", function(event){
   event.target.classList.add("open", "show");
   openArray.push(event.target);
   count();
+  compare();
   }
   // check for matches and run flip or match function
 })
