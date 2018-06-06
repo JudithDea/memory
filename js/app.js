@@ -5,6 +5,7 @@ let clickCounter = 0;
 let openCards = document.getElementsByClassName("open");
 let openArray = [];
 let matches = document.getElementsByClassName("match");
+let stars = document.querySelector(".stars");
 
 let cards = ["fa-diamond", "fa-diamond",
       "fa-paper-plane-o", "fa-paper-plane-o",
@@ -53,7 +54,7 @@ function compare(){
 }
 
 function gameOver() {
-  if (matches.length === 16){
+  if (matches.length === cards.length){
     alert("You won!");
   }
 }
@@ -106,7 +107,6 @@ deck.addEventListener("click", function(event){
   compare();
   gameOver();
   }
-  // check for matches and run flip or match function
 })
 
 
