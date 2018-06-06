@@ -30,9 +30,6 @@ function shuffle(array) {
 
 // Flip cards back over by removing open and show classes
 function flip() {
-  for (i=0; i<openCards.length; i++ ){
-    openArray.push(openCards[i]);
-  }
   openArray[0].classList.remove("open", "show");
   openArray[1].classList.remove("open", "show");
   openArray = [];
@@ -40,9 +37,6 @@ function flip() {
 
 // lock a match by removing open and show and setting match classes
 function match(){
-  for (i=0; i<openCards.length; i++ ){
-    openArray.push(openCards[i]);
-  }
   openArray[0].classList.add("match");
   openArray[0].classList.remove("open", "show");
   openArray[1].classList.add("match");
@@ -93,10 +87,10 @@ deck.addEventListener("click", function(event){
     //event should not fire when - UL is clicked instead of LI - AND when 2 cards are already open - AND when
     //the target element already has the class match
   event.target.classList.add("open", "show");
+  openArray.push(event.target);
   count();
   }
   // check for matches and run flip or match function
-
 })
 
 
