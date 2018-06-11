@@ -6,6 +6,10 @@ let openCards = document.getElementsByClassName("open");
 let openArray = [];
 let matches = document.getElementsByClassName("match");
 let stars = document.querySelector(".stars");
+let modal = document.getElementById("end-modal");
+let modalText = document.getElementById("end-text");
+const newGameBtn = document.getElementById("newGame");
+const endGameBtn = document.getElementById("closeGame");
 
 let cards = ["fa-diamond", "fa-diamond",
       "fa-paper-plane-o", "fa-paper-plane-o",
@@ -27,6 +31,17 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
     return array;
+}
+
+// start a new game
+function startNewGame() {
+  deck.innerHTML="";
+  createDeck();
+  clickCounter = 0;
+  moves.innerText = "";
+  console.log("New Deck created");
+  openArray = [];
+  stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>'
 }
 
 // Flip cards back over by removing open and show classes
@@ -66,7 +81,8 @@ function starCounter(){
 
 function gameOver() {
   if (matches.length === cards.length){
-    alert("You won!");
+    modalText.innerText = `Congratulations! You finished the game in ${clickCounter} moves in X minutes. What would you like to do next?`;
+    modal.style.display = "block";
   }
 }
 
@@ -99,12 +115,7 @@ createDeck();
 
 // create new deck when restart button is clicked, delete old deck, reset counter
 newGame.addEventListener("click", function(){
-  deck.innerHTML="";
-  createDeck();
-  clickCounter = 0;
-  moves.innerText = "";
-  console.log("New Deck created");
-  openArray = [];
+  startNewGame();
 })
 
 // card flips and shows on click
@@ -123,7 +134,14 @@ deck.addEventListener("click", function(event){
   }
 })
 
+endGameBtn.addEventListener("click", function(){
+  modal.style.display = "none";
+})
 
+newGameBtn.addEventListener("click", function(){
+  modal.style.display = "none";
+  startNewGame();
+})
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
