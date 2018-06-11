@@ -10,8 +10,9 @@ let modal = document.getElementById("end-modal");
 let modalText = document.getElementById("end-text");
 const newGameBtn = document.getElementById("newGame");
 const endGameBtn = document.getElementById("closeGame");
-let startTime = 0;
-let endTime = 0;
+let timer = document.getElementsByClassName("timer");
+let seconds = 0;
+let running;
 
 let cards = ["fa-diamond", "fa-diamond",
       "fa-paper-plane-o", "fa-paper-plane-o",
@@ -38,6 +39,7 @@ function shuffle(array) {
 // start a new game, delete old game deck and stats
 function startNewGame() {
   deck.innerHTML="";
+  seconds = 0;
   createDeck();
   clickCounter = 0;
   moves.innerText = "";
@@ -83,10 +85,17 @@ function starCounter(){
 
 function gameOver() {
   if (matches.length === cards.length){
-    console.log(startTime-endTime);
-    modalText.innerText = `Congratulations! You finished the game in ${clickCounter} moves in X minutes. What would you like to do next?`;
+    clearInterval(running);
+    modalText.innerText = `Congratulations! You finished the game in ${clickCounter} moves in ${seconds} seconds. What would you like to do next?`;
     modal.style.display = "block";
   }
+}
+
+function stopwatch(){
+  running = setInterval(function(){
+    seconds++;
+  },1000)
+  timer.innerHTML = seconds + " seconds";
 }
 
 // counts every pair of cards that's clicked
@@ -105,6 +114,7 @@ function count(){
 function createDeck(){
   cards = shuffle(cards);
   console.log(cards);
+  stopwatch();
   for (i=0; i<cards.length; i++){
     const newCard = document.createElement("li");
     newCard.classList.add("card");
