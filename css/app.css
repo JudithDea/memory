@@ -142,4 +142,5 @@ h1 {
 }
 .modalBtn:hover{
     background-color:#afceb2;
+    cursor: pointer;
 }

@@ -10,6 +10,8 @@ let modal = document.getElementById("end-modal");
 let modalText = document.getElementById("end-text");
 const newGameBtn = document.getElementById("newGame");
 const endGameBtn = document.getElementById("closeGame");
+let startTime = 0;
+let endTime = 0;
 
 let cards = ["fa-diamond", "fa-diamond",
       "fa-paper-plane-o", "fa-paper-plane-o",
@@ -33,7 +35,7 @@ function shuffle(array) {
     return array;
 }
 
-// start a new game
+// start a new game, delete old game deck and stats
 function startNewGame() {
   deck.innerHTML="";
   createDeck();
@@ -81,6 +83,7 @@ function starCounter(){
 
 function gameOver() {
   if (matches.length === cards.length){
+    console.log(startTime-endTime);
     modalText.innerText = `Congratulations! You finished the game in ${clickCounter} moves in X minutes. What would you like to do next?`;
     modal.style.display = "block";
   }
@@ -113,7 +116,7 @@ function createDeck(){
 }
 createDeck();
 
-// create new deck when restart button is clicked, delete old deck, reset counter
+// when restart button is clicked:
 newGame.addEventListener("click", function(){
   startNewGame();
 })
@@ -142,13 +145,3 @@ newGameBtn.addEventListener("click", function(){
   modal.style.display = "none";
   startNewGame();
 })
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
