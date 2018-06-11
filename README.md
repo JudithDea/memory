@@ -3,18 +3,14 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Note](#Note)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+1. Clone the repository and run index.html in your browser
+2. To play the game, click on two cards to find matches. If the two open cards don't match they will be flipped back after 1 second.
+3. To restart the game click the restart button on top of the deck. Your stats will be reset and a new deck of cards will be created at random.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Note
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+The starter code for this project was provided by Udacity. Thank you!
