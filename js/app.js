@@ -6,11 +6,12 @@ let openCards = document.getElementsByClassName("open");
 let openArray = [];
 let matches = document.getElementsByClassName("match");
 let stars = document.querySelector(".stars");
+let starRating;
 let modal = document.getElementById("end-modal");
 let modalText = document.getElementById("end-text");
 const newGameBtn = document.getElementById("newGame");
 const endGameBtn = document.getElementById("closeGame");
-let timer = document.getElementsByClassName("timer");
+let timer = document.querySelector(".timer");
 let seconds = 0;
 let running;
 
@@ -38,14 +39,24 @@ function shuffle(array) {
 
 // start a new game, delete old game deck and stats
 function startNewGame() {
-  deck.innerHTML="";
   seconds = 0;
+  clearInterval(running);
+  deck.innerHTML="";
+  starRating = 3;
   createDeck();
   clickCounter = 0;
   moves.innerText = "";
   console.log("New Deck created");
   openArray = [];
   stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>'
+}
+
+// counts seconds from start of the game
+function stopwatch(){
+  running = setInterval(function(){
+    seconds++;
+    timer.innerText = seconds + " seconds";
+  },1000)
 }
 
 // Flip cards back over by removing open and show classes
@@ -64,6 +75,7 @@ function match(){
   openArray = [];
 }
 
+// compare the open cards
 function compare(){
   if (openArray[0].innerHTML == openArray[1].innerHTML){
     match();
@@ -73,29 +85,31 @@ function compare(){
   }
 }
 
+// depending on how many clicks, number of stars changes
 function starCounter(){
-  if (clickCounter <= 8){
+  if (clickCounter <= 10){
+    starRating = 3;
     stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>'
-  } else if (clickCounter > 8 && clickCounter <=10){
+  } else if (clickCounter > 10 && clickCounter <=13){
+    starRating = 2;
     stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>'
   } else {
+    starRating = 1;
     stars.innerHTML = '<li><i class="fa fa-star"></i>'
   }
 }
 
+// once all matches are found a box opens up and the timer stops
 function gameOver() {
   if (matches.length === cards.length){
     clearInterval(running);
-    modalText.innerText = `Congratulations! You finished the game in ${clickCounter} moves in ${seconds} seconds. What would you like to do next?`;
     modal.style.display = "block";
+    if (starRating >=2){
+      modalText.innerText = `Congratulations! You finished the game in ${clickCounter} moves in ${seconds} seconds. You've earned ${starRating} stars! What would you like to do next?`;
+    } else {
+      modalText.innerText = `Congratulations! You finished the game in ${clickCounter} moves in ${seconds} seconds. You've earned ${starRating} star! What would you like to do next?`;
+    }
   }
-}
-
-function stopwatch(){
-  running = setInterval(function(){
-    seconds++;
-  },1000)
-  timer.innerHTML = seconds + " seconds";
 }
 
 // counts every pair of cards that's clicked
