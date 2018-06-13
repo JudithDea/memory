@@ -1,6 +1,6 @@
 const deck = document.querySelector(".deck");
 const newGame = document.querySelector(".restart");
-const moves = document.querySelector(".moves");
+let moves = document.querySelector(".moves");
 let clickCounter = 0;
 let openCards = document.getElementsByClassName("open");
 let openArray = [];
@@ -14,6 +14,7 @@ const endGameBtn = document.getElementById("closeGame");
 let timer = document.querySelector(".timer");
 let seconds = 0;
 let running;
+let timerClicked = false;
 
 let cards = ["fa-diamond", "fa-diamond",
       "fa-paper-plane-o", "fa-paper-plane-o",
@@ -45,7 +46,8 @@ function startNewGame() {
   starRating = 3;
   createDeck();
   clickCounter = 0;
-  moves.innerText = "";
+  moves.innerText = "0 Moves";
+  timer.innerText = "0 Seconds";
   console.log("New Deck created");
   openArray = [];
   stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>'
@@ -55,7 +57,7 @@ function startNewGame() {
 function stopwatch(){
   running = setInterval(function(){
     seconds++;
-    timer.innerText = seconds + " seconds";
+    timer.innerText = seconds + " Seconds";
   },1000)
 }
 
@@ -117,7 +119,7 @@ function count(){
   clickCounter += 0.5;
   console.log ("clicks: " + clickCounter);
   if (clickCounter === 0 || clickCounter === 0.5){
-      moves.innerText = "";
+      moves.innerText = "0 Moves";
   } else if (clickCounter === 1 || clickCounter === 1.5) {
     moves.innerText = Math.floor(clickCounter) + " Move";
   } else {
@@ -128,7 +130,7 @@ function count(){
 function createDeck(){
   cards = shuffle(cards);
   console.log(cards);
-  stopwatch();
+  timerClicked = false;
   for (i=0; i<cards.length; i++){
     const newCard = document.createElement("li");
     newCard.classList.add("card");
@@ -150,6 +152,10 @@ deck.addEventListener("click", function(event){
   if (event.target.nodeName == "LI" && openCards.length < 2 && !event.target.classList.contains("match")){
     //event should not fire when - UL is clicked instead of LI - AND when 2 cards are already open - AND when
     //the target element already has the class match
+  if (timerClicked == false){
+    stopwatch();
+  }
+  timerClicked = true;
   event.target.classList.add("open", "show");
   openArray.push(event.target);
   count();
